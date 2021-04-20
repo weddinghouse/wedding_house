@@ -23,6 +23,8 @@ class ProductAttribute(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    is_base_template = fields.Boolean(string='Base Template', default=False, copy=False)
+
 
 class Product(models.Model):
     _inherit = 'product.product'
@@ -42,5 +44,9 @@ class Product(models.Model):
             if i > 3: break
             if v: infix.append(v['key'])
             else: infix.append('00')
-        barcode = prefix + ''.join([v for v in infix]) + postfix
+        while True:
+            postfix = str(randrange(10 ** 4, 10 ** 5, 5))
+            barcode = prefix + ''.join([v for v in infix]) + postfix
+            res = self.env['product.product'].search([('barcode', '=', barcode)])
+            if not len(res): break
         self.barcode = barcode
