@@ -8,7 +8,7 @@
 
     'depends': ['stock', 'purchase', 'point_of_sale'],
     'data': [
-
+        'views/product.xml',
     ],
     'application': True,
 }
