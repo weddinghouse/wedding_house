@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_details_1" model="product.template.pattern">
+            <field name="name">Solid</field>
+        </record>
+        <record id="product_details_2" model="product.template.pattern">
+            <field name="name">Stripe</field>
+        </record>
+        <record id="product_details_3" model="product.template.pattern">
+            <field name="name">Check</field>
+        </record>
+        <record id="product_details_4" model="product.template.pattern">
+            <field name="name">Dot</field>
+        </record>
+        <record id="product_details_5" model="product.template.pattern">
+            <field name="name">Twill</field>
+        </record>
+        <!--        -->
+
+        <record id="product_details_6" model="product.template.breast.type">
+            <field name="name">Single</field>
+        </record>
+        <record id="product_details_7" model="product.template.breast.type">
+            <field name="name">Double</field>
+        </record>
+        <!--        -->
+        <record id="product_details_8" model="product.template.fit">
+            <field name="name">Regular</field>
+        </record>
+        <record id="product_details_9" model="product.template.fit">
+            <field name="name">Half Slim</field>
+        </record>
+        <record id="product_details_10" model="product.template.fit">
+            <field name="name">Slim Fit</field>
+        </record>
+        <record id="product_details_11" model="product.template.fit">
+            <field name="name">Ultra Slim</field>
+        </record>
+        <!--        -->
+        <record id="product_details_12" model="product.template.lapel.type">
+            <field name="name">Notch</field>
+        </record>
+        <record id="product_details_13" model="product.template.lapel.type">
+            <field name="name">Peak</field>
+        </record>
+        <record id="product_details_14" model="product.template.lapel.type">
+            <field name="name">Shawl</field>
+        </record>
+        <!--        -->
+        <record id="product_details_15" model="product.template.lapel.size">
+            <field name="name">2.5 inch</field>
+        </record>
+        <record id="product_details_16" model="product.template.lapel.size">
+            <field name="name">3 inch</field>
+        </record>
+        <record id="product_details_17" model="product.template.lapel.size">
+            <field name="name">3.5 inch</field>
+        </record>
+        <!--        -->
+        <record id="product_details_18" model="product.template.pocket.type">
+            <field name="name">Jetted</field>
+        </record>
+
+        <record id="product_details_19" model="product.template.pocket.type">
+            <field name="name">Flap</field>
+        </record>
+
+        <record id="product_details_20" model="product.template.pocket.type">
+            <field name="name">Angled</field>
+        </record>
+
+        <record id="product_details_21" model="product.template.pocket.type">
+            <field name="name">Ticket</field>
+        </record>
+        <!--        -->
+        <record id="product_details_22" model="product.template.sleeve.button">
+            <field name="name">1</field>
+        </record>
+        <record id="product_details_23" model="product.template.sleeve.button">
+            <field name="name">2</field>
+        </record>
+        <record id="product_details_24" model="product.template.sleeve.button">
+            <field name="name">3</field>
+        </record>
+        <record id="product_details_25" model="product.template.sleeve.button">
+            <field name="name">4</field>
+        </record>
+        <!--        -->
+        <record id="product_details_26" model="product.template.sleeve.button.style">
+            <field name="name">Spaced</field>
+        </record>
+        <record id="product_details_27" model="product.template.sleeve.button.style">
+            <field name="name">Kissing</field>
+        </record>
+        <record id="product_details_28" model="product.template.sleeve.button.style">
+            <field name="name">Stacked</field>
+        </record>
+        <!--        -->
+        <record id="product_details_29" model="product.template.vent.type">
+            <field name="name">Single</field>
+        </record>
+        <record id="product_details_30" model="product.template.vent.type">
+            <field name="name">Double</field>
+        </record>
+        <!--        -->
+        <record id="product_details_31" model="product.template.collar.type">
+            <field name="name">Classic Point</field>
+        </record>
+        <record id="product_details_32" model="product.template.collar.type">
+            <field name="name">Wide Spread</field>
+        </record>
+        <record id="product_details_33" model="product.template.collar.type">
+            <field name="name">Cutaway</field>
+        </record>
+        <record id="product_details_34" model="product.template.collar.type">
+            <field name="name">Button-down Point</field>
+        </record>
+        <record id="product_details_35" model="product.template.collar.type">
+            <field name="name">Pin</field>
+        </record>
+        <record id="product_details_36" model="product.template.collar.type">
+            <field name="name">Tab</field>
+        </record>
+        <record id="product_details_37" model="product.template.collar.type">
+            <field name="name">Wing</field>
+        </record>
+        <record id="product_details_38" model="product.template.collar.type">
+            <field name="name">Square</field>
+        </record>
+        <record id="product_details_39" model="product.template.collar.type">
+            <field name="name">Club</field>
+        </record>
+        <record id="product_details_40" model="product.template.collar.type">
+            <field name="name">Band</field>
+        </record>
+        <!--        -->
+        <record id="product_details_41" model="product.template.cuffs.type">
+            <field name="name">One-button</field>
+        </record>
+
+        <record id="product_details_42" model="product.template.cuffs.type">
+            <field name="name">One-button Cut</field>
+        </record>
+
+        <record id="product_details_43" model="product.template.cuffs.type">
+            <field name="name">French Cuffs</field>
+        </record>
+
+        <record id="product_details_44" model="product.template.cuffs.type">
+            <field name="name">French Cuffs Cut</field>
+        </record>
+        <!--        -->
+        <record id="product_details_45" model="product.template.shoes.style">
+            <field name="name">Lace-up</field>
+        </record>
+        <record id="product_details_46" model="product.template.shoes.style">
+            <field name="name">Slip-on</field>
+        </record>
+        <!--        -->
+        <record id="product_details_47" model="product.template.shoes.style">
+            <field name="name">Bluchers</field>
+        </record>
+        <record id="product_details_48" model="product.template.shoes.style">
+            <field name="name">Oxford</field>
+        </record>
+        <record id="product_details_49" model="product.template.shoes.style">
+            <field name="name">Derby</field>
+        </record>
+        <record id="product_details_50" model="product.template.shoes.style">
+            <field name="name">Budapester</field>
+        </record>
+        <record id="product_details_51" model="product.template.shoes.style">
+            <field name="name">Strap</field>
+        </record>
+        <record id="product_details_52" model="product.template.shoes.style">
+            <field name="name">Loafer</field>
+        </record>
+        <record id="product_details_53" model="product.template.shoes.style">
+            <field name="name">Boots</field>
+        </record>
+    </data>
+</odoo>

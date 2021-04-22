@@ -8,6 +8,8 @@
 
     'depends': ['stock', 'purchase', 'point_of_sale'],
     'data': [
+        'security/ir.model.access.csv',
+        'data/product_data.xml',
         'views/product.xml',
     ],
     'application': True,

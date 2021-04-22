@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-     <record id="product_category_list_view_inherited" model="ir.ui.view">
-            <field name="name">product.category.list.inherited</field>
-            <field name="model">product.category</field>
-            <field name="inherit_id" ref="product.product_category_list_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='display_name']" position="after">
-                    <field name="barcode_prefix"/>
-                </xpath>
-            </field>
-        </record>
+    <record id="product_category_list_view_inherited" model="ir.ui.view">
+        <field name="name">product.category.list.inherited</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='display_name']" position="after">
+                <field name="barcode_prefix"/>
+            </xpath>
+        </field>
+    </record>
 
     <record id="product_category_form_view_inherited" model="ir.ui.view">
         <field name="name">product.category.form.inherited</field>
@@ -21,6 +21,7 @@
                 <group string="Barcode information">
                     <group>
                         <field name="barcode_prefix"/>
+                        <field name="sequence_id"/>
                     </group>
                 </group>
             </xpath>
@@ -85,6 +86,16 @@
         </field>
     </record>
 
+    <record id="product_template_only_form_view_inherited" model="ir.ui.view">
+        <field name="name">product.template.product.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="product_textile_type"/>
+            </xpath>
+        </field>
+    </record>
 
     <record id="product_template_form_view_inherited" model="ir.ui.view">
         <field name="name">product.template.common.form.inherited</field>
@@ -96,6 +107,39 @@
                     <field name="is_base_template"/>
                     <label for="is_base_template"/>
                 </div>
+            </xpath>
+            <xpath expr="//group[field[@name='description']]" position="replace">
+                <field name="product_textile_type" invisible="1"/>
+                <group string="Suit Details" attrs="{'invisible': [('product_textile_type', '!=', 'suit')]}">
+                    <group>
+                        <field name="pattern_id"/>
+                        <field name="breast_type_id"/>
+                        <field name="fit_id"/>
+                        <field name="lapel_button_hole"/>
+                        <field name="lapel_type_id"/>
+                        <field name="lapel_size_id"/>
+                        <field name="sleeve_button_id"/>
+                        <field name="sleeve_button_style_id"/>
+                        <field name="vent_type_id"/>
+                    </group>
+                </group>
+                <group string="Shirt Details" attrs="{'invisible': [('product_textile_type', '!=', 'shirt')]}">
+                    <group>
+                        <field name="pattern_id"/>
+                        <field name="fit_id"/>
+                        <field name="collar_type_id"/>
+                        <field name="cuffs_type_id"/>
+                    </group>
+                </group>
+                <group string="Shoes Details" attrs="{'invisible': [('product_textile_type', '!=', 'shoes')]}">
+                    <group>
+                        <field name="shoes_closure_type_id"/>
+                        <field name="shoes_style_id"/>
+                    </group>
+                </group>
+                <group name="internal_notes" string="Internal Notes">
+                    <field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                </group>
             </xpath>
         </field>
     </record>
