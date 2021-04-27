@@ -103,6 +103,25 @@ class ProductShoesStyle(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    internal_code = fields.Char(string='Internal Code', copy=False)
+
+    @api.depends('product_variant_ids', 'internal_code')
+    def _compute_template_default_code(self):
+        for rec in self:
+            rec.default_code = rec.internal_code
+
+    default_code = fields.Char(string='Internal Reference', compute='_compute_template_default_code')
+
+    @api.model
+    def create(self, vals_list):
+        if 'categ_id' in vals_list:
+            category = self.env['product.category'].browse(vals_list['categ_id'])
+            code = category.sequence_id._next()
+            vals_list['default_code'] = code
+            vals_list['internal_code'] = code
+        template = super(ProductTemplate, self).create(vals_list)
+        return template
+
     @api.onchange('product_textile_type')
     def _onchange_product_textile_type(self):
         if self.product_textile_type == 'suit':
@@ -160,7 +179,7 @@ class ProductTemplate(models.Model):
     pattern_id = fields.Many2one('product.template.pattern', string='Pattern')  # Common between shirts and suits
     breast_type_id = fields.Many2one('product.template.breast.type', string='Breast Type')
     fit_id = fields.Many2one('product.template.fit', string='Fit')  # Common between shirts and suits
-    lapel_button_hole = fields.Boolean(string='Label Button Hole')
+    lapel_button_hole = fields.Boolean(string='Lapel Button Hole')
     lapel_type_id = fields.Many2one('product.template.lapel.type', string='Lapel Type')
     lapel_size_id = fields.Many2one('product.template.lapel.size', string='Lapel Size')
     pocket_type_id = fields.Many2one('product.template.pocket.type', string='Pocket Type')
@@ -174,16 +193,18 @@ class ProductTemplate(models.Model):
     shoes_closure_type_id = fields.Many2one('product.template.shoes.closure.type', string='Shoes Closure Type')
     shoes_style_id = fields.Many2one('product.template.shoes.style', string='Shoes Style')
 
+    variant_standard_price = fields.Float('Variant Cost', digits='Product Price', groups="base.group_user")
+
 
 class Product(models.Model):
     _inherit = 'product.product'
 
     def generate_barcode(self):
         prefix = self.categ_id.barcode_prefix or '00'
-        if self.categ_id.sequence_id:
-            infix = self.categ_id.sequence_id._next()
+        if self.product_tmpl_id.internal_code:
+            infix = self.product_tmpl_id.internal_code
         else:
-            infix = str(randrange(10 ** 4, 10 ** 5, 5))
+            infix = '0' * 7
         postfix = []
         attributes = []
         for av in self.product_template_attribute_value_ids:
@@ -200,3 +221,28 @@ class Product(models.Model):
                 postfix.append('00')
         barcode = prefix + infix + ''.join([v for v in postfix])
         self.barcode = barcode
+
+    @api.model_create_multi
+    def create(self, values):
+        products = super(Product, self).create(values)
+        for product in products:
+            if not product.barcode:
+                product.generate_barcode()
+        return products
+
+    @api.depends('product_tmpl_id.variant_standard_price')
+    def _compute_variant_cost_price(self):
+        for rec in self:
+            rec.standard_price = rec.product_tmpl_id.variant_standard_price
+
+    standard_price = fields.Float(
+        'Cost', company_dependent=True,
+        digits='Product Price',
+        groups="base.group_user",
+        help="""In Standard Price & AVCO: value of the product (automatically computed in AVCO).
+            In FIFO: value of the last unit that left the stock (automatically computed).
+            Used to value the product when the purchase cost is not known (e.g. inventory adjustment).
+            Used to compute margins on sale orders.""",
+        compute='_compute_variant_cost_price',
+        readonly=False,
+    )
