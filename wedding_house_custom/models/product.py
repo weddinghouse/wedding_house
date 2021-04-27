@@ -108,7 +108,7 @@ class ProductTemplate(models.Model):
     @api.depends('product_variant_ids', 'internal_code')
     def _compute_template_default_code(self):
         for rec in self:
-            rec.default_code = rec.internal_code
+            rec.default_code = str(rec.categ_id.barcode_prefix or 99) + str(rec.internal_code)
 
     default_code = fields.Char(string='Internal Reference', compute='_compute_template_default_code')
 
@@ -117,7 +117,8 @@ class ProductTemplate(models.Model):
         if 'categ_id' in vals_list:
             category = self.env['product.category'].browse(vals_list['categ_id'])
             code = category.sequence_id._next()
-            vals_list['default_code'] = code
+            prefix = category.barcode_prefix
+            vals_list['default_code'] = str(prefix or 99) + str(code)
             vals_list['internal_code'] = code
         template = super(ProductTemplate, self).create(vals_list)
         return template
