@@ -9,7 +9,7 @@
     'depends': ['stock', 'hr', 'purchase', 'point_of_sale', 'purchase_product_matrix'],
     'data': [
         'security/ir.model.access.csv',
-        # 'templates/templates.xml',
+        'templates/templates.xml',
         'data/product_data.xml',
         'views/hr_employee.xml',
         'views/pos_order.xml',

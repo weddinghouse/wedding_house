@@ -6,8 +6,12 @@
                 <t t-translation="off">
                     ^XA
                     ^FO100,50
-                    ^A0N,44,33^FD<t t-esc="product.display_name"/>^FS
+                    ^A0N,44,33^FD<t t-esc="product.name"/>^FS
                     ^FO100,100
+                    ^A0N,44,33^FD<t t-esc="product.product_template_attribute_value_ids[0].attribute_id.name"/>: <t t-esc="product.product_template_attribute_value_ids[0].name"/>^FS
+                    ^FO100,150
+                    ^A0N,44,33^FD<t t-esc="product.product_template_attribute_value_ids[1].attribute_id.name"/>: <t t-esc="product.product_template_attribute_value_ids[1].name"/>^FS
+                    ^FO400,150
                     <t t-if="product.currency_id.position == 'after'">
                         ^CI28
                         ^A0N,44,33^FH^FDPrice: <t t-esc="product.lst_price"
@@ -21,7 +25,7 @@
                         ^FS
                     </t>
                     <t t-if="product.barcode">
-                        ^FO100,150^BY3
+                        ^FO100,200^BY3
                         ^BCN,100,Y,N,N
                         ^FD<t t-esc="product.barcode"/>^FS
                     </t>

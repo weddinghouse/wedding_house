@@ -36,6 +36,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='create_variant']" position="after">
                 <field name="barcode_sequence"/>
+                <field name="print_name"/>
             </xpath>
         </field>
     </record>
@@ -47,6 +48,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='create_variant']" position='after'>
                 <field name="barcode_sequence"/>
+                <field name="print_name"/>
             </xpath>
             <xpath expr="//field[@name='is_custom']" position='after'>
                 <field name="barcode_key"/>
@@ -103,14 +105,14 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='standard_price_uom']" position="after">
-                    <label for="variant_standard_price" groups="base.group_user"/>
-                    <div name="standard_price_uom" groups="base.group_user" class="o_row">
-                        <field name="variant_standard_price" widget='monetary'
-                               options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
-                        <!--                    <span groups="uom.group_uom" class="oe_read_only">per-->
-                        <!--                        <field name="uom_name"/>-->
-                        <!--                    </span>-->
-                    </div>
+                <label for="variant_standard_price" groups="base.group_user"/>
+                <div name="standard_price_uom" groups="base.group_user" class="o_row">
+                    <field name="variant_standard_price" widget='monetary'
+                           options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+                    <!--                    <span groups="uom.group_uom" class="oe_read_only">per-->
+                    <!--                        <field name="uom_name"/>-->
+                    <!--                    </span>-->
+                </div>
             </xpath>
             <xpath expr="//div[@name='options']" position="inside">
                 <div>

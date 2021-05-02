@@ -20,6 +20,7 @@ class ProductAttribute(models.Model):
     _inherit = 'product.attribute'
 
     barcode_sequence = fields.Integer(string='Barcode Sequence')
+    print_name = fields.Char(string='Print Name', required=True)
 
 
 class ProductPattern(models.Model):
