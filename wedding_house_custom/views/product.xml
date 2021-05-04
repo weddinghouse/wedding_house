@@ -105,13 +105,14 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='standard_price_uom']" position="after">
-                <label for="variant_standard_price" groups="base.group_user"/>
-                <div name="standard_price_uom" groups="base.group_user" class="o_row">
+                <field name="product_variant_ids" invisible="1"/>
+                <label for="variant_standard_price" groups="base.group_user"
+                       attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}"/>
+                <div name="standard_price_uom" groups="base.group_user" class="o_row"
+                     attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}">
+
                     <field name="variant_standard_price" widget='monetary'
                            options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
-                    <!--                    <span groups="uom.group_uom" class="oe_read_only">per-->
-                    <!--                        <field name="uom_name"/>-->
-                    <!--                    </span>-->
                 </div>
             </xpath>
             <xpath expr="//div[@name='options']" position="inside">
