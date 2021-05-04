@@ -13,6 +13,7 @@
         'data/product_data.xml',
         'views/hr_employee.xml',
         'views/pos_order.xml',
+        'views/purchase_order.xml',
         'views/product.xml',
     ],
     'application': True,

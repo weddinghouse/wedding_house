@@ -104,9 +104,10 @@ class ProductShoesStyle(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+
     internal_code = fields.Char(string='Internal Code', copy=False)
 
-    @api.depends('product_variant_ids', 'internal_code')
+    @api.depends('product_variant_ids', 'internal_code', 'categ_id')
     def _compute_template_default_code(self):
         for rec in self:
             rec.default_code = str(rec.categ_id.barcode_prefix or 99) + str(rec.internal_code)
@@ -119,8 +120,8 @@ class ProductTemplate(models.Model):
             category = self.env['product.category'].browse(vals_list['categ_id'])
             code = category.sequence_id._next()
             prefix = category.barcode_prefix
-            vals_list['default_code'] = str(prefix or 99) + str(code)
-            vals_list['internal_code'] = code
+            vals_list['default_code'] = str(prefix or 99) + str(code).zfill(7)
+            vals_list['internal_code'] = code.zfill(7)
         template = super(ProductTemplate, self).create(vals_list)
         return template
 
