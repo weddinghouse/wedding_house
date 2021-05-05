@@ -1,8 +1,17 @@
 from odoo import models, fields, api
 
 
+class StockInventoryLine(models.Model):
+    _inherit = 'stock.inventory.line'
+
+    product_default_code = fields.Char(related='product_id.default_code')
+    product_type = fields.Selection(related='product_id.product_tmpl_id.product_textile_type')
+    product_barcode = fields.Char(related='product_id.barcode')
+
+
 class StockInventory(models.Model):
     _inherit = 'stock.inventory'
+
 
     product_template_ids = fields.Many2many(
         'product.template', string='Templates', check_company=True,
