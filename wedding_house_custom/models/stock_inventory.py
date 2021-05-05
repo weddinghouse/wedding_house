@@ -14,7 +14,6 @@ class StockInventory(models.Model):
     @api.onchange('product_template_ids')
     def _onchange_product_template(self):
         products = []
-        print()
         current_products = self.product_ids
         for template in self.product_template_ids:
             for product_id in template.product_variant_ids.ids:
