@@ -104,26 +104,33 @@ class ProductShoesStyle(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-
     internal_code = fields.Char(string='Internal Code', copy=False)
 
-    @api.depends('product_variant_ids', 'internal_code', 'categ_id')
-    def _compute_template_default_code(self):
-        for rec in self:
-            rec.default_code = str(rec.categ_id.barcode_prefix or 99) + str(rec.internal_code)
-
-    default_code = fields.Char(string='Internal Reference', compute='_compute_template_default_code')
-
     @api.model
-    def create(self, vals_list):
-        if 'categ_id' in vals_list:
-            category = self.env['product.category'].browse(vals_list['categ_id'])
+    def create(self, vals):
+        if 'categ_id' in vals:
+            category = self.env['product.category'].browse(vals['categ_id'])
             code = category.sequence_id._next()
             prefix = category.barcode_prefix
-            vals_list['default_code'] = str(prefix or 99) + str(code).zfill(7)
-            vals_list['internal_code'] = code.zfill(7)
-        template = super(ProductTemplate, self).create(vals_list)
+            vals['default_code'] = str(prefix or 00) + str(code).zfill(7)
+            vals['internal_code'] = code.zfill(7)
+        template = super(ProductTemplate, self).create(vals)
         return template
+
+    def write(self, vals):
+        print(vals)
+        if 'categ_id' in vals:
+            category = self.env['product.category'].browse(vals['categ_id'])
+            vals['internal_code'] = category.sequence_id._next().zfill(7)
+
+        if 'internal_code' in vals:
+            category = self.env['product.category'].browse(vals['categ_id'])
+            vals['default_code'] = category.barcode_prefix + vals['internal_code']
+
+        if 'default_code' in vals:
+            vals['barcode'] = vals['default_code'] + '0' * 4
+
+        res = super(ProductTemplate, self).write(vals)
 
     @api.onchange('product_textile_type')
     def _onchange_product_textile_type(self):
@@ -203,7 +210,7 @@ class Product(models.Model):
     _inherit = 'product.product'
 
     def generate_barcode(self):
-        prefix = self.categ_id.barcode_prefix or '00'
+        prefix = self.product_tmpl_id.internal_barcode_prefix or '00'
         if self.product_tmpl_id.internal_code:
             infix = self.product_tmpl_id.internal_code
         else:
