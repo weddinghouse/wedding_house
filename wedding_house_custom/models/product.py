@@ -106,6 +106,13 @@ class ProductTemplate(models.Model):
 
     internal_code = fields.Char(string='Internal Code', copy=False)
 
+    @api.depends('categ_id', 'categ_id.name')
+    def _compute_name(self):
+        for rec in self:
+            rec.name = rec.categ_id.name
+
+    name = fields.Char('Name', index=True, required=True, translate=True, compute='_compute_name', store=True)
+
     @api.model
     def create(self, vals):
         if 'categ_id' in vals:
