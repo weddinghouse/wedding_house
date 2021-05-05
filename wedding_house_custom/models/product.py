@@ -141,7 +141,7 @@ class ProductTemplate(models.Model):
 
     @api.onchange('product_textile_type')
     def _onchange_product_textile_type(self):
-        if self.product_textile_type == 'suit':
+        if self.product_textile_type in ['suit', 'blazer']:
             self.collar_type_id = False
             self.cuffs_type_id = False
             self.shoes_closure_type_id = False
@@ -187,6 +187,7 @@ class ProductTemplate(models.Model):
 
     product_textile_type = fields.Selection([
         ('suit', 'Suit'),
+        ('blazer', 'Blazer'),
         ('shirt', 'Shirt'),
         ('shoes', 'Shoes'),
     ], string='Product Type')
