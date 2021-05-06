@@ -106,12 +106,9 @@ class ProductTemplate(models.Model):
 
     internal_code = fields.Char(string='Internal Code', copy=False)
 
-    @api.depends('categ_id', 'categ_id.name')
-    def _compute_name(self):
-        for rec in self:
-            rec.name = rec.categ_id.name
-
-    name = fields.Char('Name', index=True, required=True, translate=True, compute='_compute_name', store=True)
+    @api.onchange('categ_id', 'categ_id.name')
+    def _onchange_category(self):
+        self.name = self.categ_id.name
 
     @api.model
     def create(self, vals):
@@ -218,7 +215,7 @@ class Product(models.Model):
     _inherit = 'product.product'
 
     def generate_barcode(self):
-        prefix = self.product_tmpl_id.internal_barcode_prefix or '00'
+        prefix = self.product_tmpl_id.categ_id.barcode_prefix or '00'
         if self.product_tmpl_id.internal_code:
             infix = self.product_tmpl_id.internal_code
         else:
