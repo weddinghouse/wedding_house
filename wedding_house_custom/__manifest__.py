@@ -16,6 +16,7 @@
         'views/purchase_order.xml',
         'views/product.xml',
         'views/stock_inventory.xml',
+        'views/pos_session.xml',
     ],
     'application': True,
 }
