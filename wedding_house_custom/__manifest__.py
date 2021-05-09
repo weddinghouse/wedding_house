@@ -11,12 +11,17 @@
         'security/ir.model.access.csv',
         'templates/templates.xml',
         'data/product_data.xml',
+        'views/assets.xml',
         'views/hr_employee.xml',
         'views/pos_order.xml',
         'views/purchase_order.xml',
         'views/product.xml',
         'views/stock_inventory.xml',
         'views/pos_session.xml',
+    ],
+    'qweb': [
+        'static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml',
+        'static/src/xml/Screens/PaymentScreen/PaymentScreen.xml',
     ],
     'application': True,
 }

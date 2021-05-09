@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PaymentScreen" t-inherit="point_of_sale.PaymentScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('customer-button')]" position="after">
+            <div class="customer-button">
+                <div class="button" t-on-click="selectSalesPerson">
+                    <i class="fa fa-user" role="img" aria-label="Sales Person" title="Sales Person"/>
+                    <span class="js_sales_person_name">
+                        <t t-if="env.pos.get_sales_person()">
+                            <t t-esc="env.pos.get_sales_person().name"/>
+                        </t>
+                        <t t-if="!env.pos.get_sales_person()">
+                            Sales Person
+                        </t>
+                    </span>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

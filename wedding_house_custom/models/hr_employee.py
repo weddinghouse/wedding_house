@@ -4,6 +4,8 @@ from odoo import models, fields, api, _
 class Employee(models.Model):
     _inherit = 'hr.employee'
 
+    is_sales_person = fields.Boolean(string='Sales Person', groups="hr.group_hr_user")
+
     pos_order_ids = fields.One2many('pos.order', 'sales_person', string='Orders', groups="hr.group_hr_user")
 
     @api.depends('pos_order_ids')

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="wedding_house_custom.assets" name="wedding_house_custom wedding house assets"
+              inherit_id="point_of_sale.assets_common">
+        <xpath expr="//t[@t-call-assets][last()]" position="after">
+            <script type="text/javascript" src="/wedding_house_custom/static/src/js/models.js" />
+            <script type="text/javascript"
+                    src="/wedding_house_custom/static/src/js/Screens/PaymentScreen/PaymentScreen.js"/>
+        </xpath>
+    </template>
+</odoo>
