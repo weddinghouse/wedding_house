@@ -98,6 +98,7 @@
             </xpath>
             <xpath expr="//field[@name='default_code']" position="attributes">
                 <attribute name="readonly">1</attribute>
+                <attribute name="attrs"></attribute>
             </xpath>
             <xpath expr="//field[@name='barcode']" position="attributes">
                 <attribute name="readonly">1</attribute>

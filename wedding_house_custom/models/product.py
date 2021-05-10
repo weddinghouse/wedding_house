@@ -103,6 +103,14 @@ class ProductShoesStyle(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
+    _rec_name = 'complete_name'
+
+    @api.depends('default_code', 'name')
+    def _compute_complete_name(self):
+        for template in self:
+            template.complete_name = f'[{template.default_code}] {template.name}'
+
+    complete_name = fields.Char(string='Complete Name', compute='_compute_complete_name', store=True)
 
     internal_code = fields.Char(string='Internal Code', copy=False)
 
