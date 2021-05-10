@@ -13,92 +13,97 @@ class ProductCategory(models.Model):
 class ProductAttributeValue(models.Model):
     _inherit = 'product.attribute.value'
 
-    barcode_key = fields.Char(string='Barcode Key', size=2)
+    @api.depends('sequence')
+    def _compute_barcode_key(self):
+        for rec in self:
+            rec.barcode_key = str(rec.sequence).zfill(2)
+
+    barcode_key = fields.Char(string='Barcode Key', size=2, compute='_compute_barcode_key')
 
 
 class ProductAttribute(models.Model):
     _inherit = 'product.attribute'
 
     barcode_sequence = fields.Integer(string='Barcode Sequence')
-    print_name = fields.Char(string='Print Name', required=True)
+    print_name = fields.Char(string='Print Name', required=True, translate=True)
 
 
 class ProductPattern(models.Model):
     _name = 'product.template.pattern'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductBreastType(models.Model):
     _name = 'product.template.breast.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductFit(models.Model):
     _name = 'product.template.fit'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductLapelType(models.Model):
     _name = 'product.template.lapel.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductLapelSize(models.Model):
     _name = 'product.template.lapel.size'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductPocketType(models.Model):
     _name = 'product.template.pocket.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductSleeveButton(models.Model):
     _name = 'product.template.sleeve.button'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductSleeveButtonStyle(models.Model):
     _name = 'product.template.sleeve.button.style'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductVentType(models.Model):
     _name = 'product.template.vent.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductCollarType(models.Model):
     _name = 'product.template.collar.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductCuffsType(models.Model):
     _name = 'product.template.cuffs.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductShoesClosureType(models.Model):
     _name = 'product.template.shoes.closure.type'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductShoesStyle(models.Model):
     _name = 'product.template.shoes.style'
 
-    name = fields.Char(string='Name')
+    name = fields.Char(string='Name', translate=True)
 
 
 class ProductTemplate(models.Model):
