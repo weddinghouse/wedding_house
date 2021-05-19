@@ -6,7 +6,7 @@
     'author': 'EffVision',
     'category': 'POS',
 
-    'depends': ['stock', 'hr', 'purchase', 'point_of_sale', 'purchase_product_matrix'],
+    'depends': ['stock', 'hr', 'purchase', 'point_of_sale', 'purchase_product_matrix', 'product'],
     'data': [
         'security/ir.model.access.csv',
         'templates/templates.xml',

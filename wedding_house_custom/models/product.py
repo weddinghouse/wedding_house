@@ -117,6 +117,17 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
     _rec_name = 'complete_name'
 
+    @api.depends('product_variant_ids', 'product_variant_ids.default_code')
+    def _compute_default_code(self):
+        pass
+
+    def _set_default_code(self):
+        pass
+
+    default_code = fields.Char(
+        'Internal Reference', compute='_compute_default_code',
+        inverse='_set_default_code', store=True)
+
     @api.depends('default_code', 'name')
     def _compute_complete_name(self):
         for template in self:
@@ -142,7 +153,6 @@ class ProductTemplate(models.Model):
         return template
 
     def write(self, vals):
-        print(vals)
         if 'categ_id' in vals:
             category = self.env['product.category'].browse(vals['categ_id'])
             vals['internal_code'] = category.sequence_id._next().zfill(7)
@@ -152,7 +162,7 @@ class ProductTemplate(models.Model):
             vals['default_code'] = category.barcode_prefix + vals['internal_code']
 
         if 'default_code' in vals:
-            vals['barcode'] = vals['default_code'] + '0' * 4
+            vals['barcode'] = vals['default_code'] + '9' * 4
 
         res = super(ProductTemplate, self).write(vals)
 
@@ -234,6 +244,16 @@ class ProductTemplate(models.Model):
 class Product(models.Model):
     _inherit = 'product.product'
 
+    @api.depends('product_tmpl_id', 'product_tmpl_id.default_code')
+    def _compute_default_code(self):
+        for rec in self:
+            if rec.product_tmpl_id.default_code:
+                rec.default_code = rec.product_tmpl_id.default_code
+            else:
+                rec.default_code = 'AWESOME'
+
+    default_code = fields.Char('Internal Reference', index=True, compute='_compute_default_code', store=True)
+
     def generate_barcode(self):
         prefix = self.product_tmpl_id.categ_id.barcode_prefix or '00'
         if self.product_tmpl_id.internal_code:
@@ -245,7 +265,7 @@ class Product(models.Model):
         for av in self.product_template_attribute_value_ids:
             attributes.append({
                 'sequence': av.attribute_id.barcode_sequence or 0,
-                'key': av.product_attribute_value_id.barcode_key or '00',
+                'key': av.product_attribute_value_id.barcode_key or '99',
             })
         attributes_sorted = sorted(attributes, key=lambda x: x['sequence'])
         for i, v in zip_longest(range(2), attributes_sorted, fillvalue=False):
@@ -253,9 +273,13 @@ class Product(models.Model):
             if v:
                 postfix.append(v['key'])
             else:
-                postfix.append('00')
+                postfix.append('99')
         barcode = prefix + infix + ''.join([v for v in postfix])
         self.barcode = barcode
+
+    def write(self, values):
+        res = super(Product, self).write(values)
+        return res
 
     @api.model_create_multi
     def create(self, values):
@@ -263,6 +287,8 @@ class Product(models.Model):
         for product in products:
             if not product.barcode:
                 product.generate_barcode()
+            if not product.default_code:
+                product.default_code = products.product_tmpl_id.default_code
         return products
 
     @api.depends('product_tmpl_id.variant_standard_price')
