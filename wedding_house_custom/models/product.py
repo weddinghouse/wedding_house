@@ -20,6 +20,13 @@ class ProductAttributeValue(models.Model):
 
     barcode_key = fields.Char(string='Barcode Key', size=2, compute='_compute_barcode_key')
 
+    @api.model
+    def create(self, values):
+        res = super(ProductAttributeValue, self).create(values)
+        res.barcode_key = str(res.sequence).zfill(2)
+
+        return res
+
 
 class ProductAttribute(models.Model):
     _inherit = 'product.attribute'
