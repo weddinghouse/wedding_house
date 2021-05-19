@@ -249,8 +249,6 @@ class Product(models.Model):
         for rec in self:
             if rec.product_tmpl_id.default_code:
                 rec.default_code = rec.product_tmpl_id.default_code
-            else:
-                rec.default_code = 'AWESOME'
 
     default_code = fields.Char('Internal Reference', index=True, compute='_compute_default_code', store=True)
 
