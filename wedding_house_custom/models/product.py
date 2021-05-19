@@ -238,7 +238,7 @@ class ProductTemplate(models.Model):
     shoes_closure_type_id = fields.Many2one('product.template.shoes.closure.type', string='Shoes Closure Type')
     shoes_style_id = fields.Many2one('product.template.shoes.style', string='Shoes Style')
 
-    variant_standard_price = fields.Float('Variant Cost', digits='Product Price', groups="base.group_user")
+    variant_standard_price = fields.Float('Cost', digits='Product Price', groups="base.group_user")
 
 
 class Product(models.Model):
