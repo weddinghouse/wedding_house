@@ -20,3 +20,15 @@ class StockPicking(models.Model):
                 }
                 lines.append((0, 0, values))
         self.update(dict(move_ids_without_package=lines))
+
+    description_lines = fields.One2many('stock.picking.description.lines', 'stock_picking_id',
+                                        string='Description Lines')
+
+
+class DescriptionLines(models.Model):
+    _name = 'stock.picking.description.lines'
+
+    name = fields.Char(string='Product')
+    quantity = fields.Integer(string='Quantity')
+    stock_picking_id = fields.Many2one('stock.picking')
+

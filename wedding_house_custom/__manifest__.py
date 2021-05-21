@@ -11,6 +11,7 @@
         'security/ir.model.access.csv',
         'templates/templates.xml',
         'data/product_data.xml',
+        'wizard/template_wizard.xml',
         'views/assets.xml',
         'views/hr_employee.xml',
         'views/pos_order.xml',
