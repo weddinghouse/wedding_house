@@ -8,11 +8,16 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='operations']" position="before">
-                <page string="Details" name="details">
+                <page string="Details" name="details"
+                      attrs="{'invisible': [
+                      ('state', 'in', ['assigned', 'done', 'cancel']),
+                      ('description_lines', '=', False)]}"
+                >
                     <group>
                         <button string="Insert product" class="btn-secondary"
                                 name="wedding_house_custom.action_template_wizard" type="action"
                                 context="{'stock_picking_id': id}"
+                                attrs="{'invisible': [('state', 'in', ['assigned', 'done', 'cancel'])]}"
                         />
                     </group>
                     <field name="description_lines">
