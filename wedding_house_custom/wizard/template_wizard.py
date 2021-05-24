@@ -21,7 +21,7 @@ class TemplateWizard(models.TransientModel):
         self.line_ids = product_list
 
     def action_confirm(self):
-        stock_picking_id = self._context['params']['id']
+        stock_picking_id = self._context['stock_picking_id']
         stock_picking = self.env['stock.picking'].browse(stock_picking_id)
         lines = []
         total_quantity = 0

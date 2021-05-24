@@ -12,7 +12,7 @@
                     <group>
                         <button string="Insert product" class="btn-secondary"
                                 name="wedding_house_custom.action_template_wizard" type="action"
-                                context="{'stock_picking_id': 'id'}"
+                                context="{'stock_picking_id': id}"
                         />
                     </group>
                     <field name="description_lines">
