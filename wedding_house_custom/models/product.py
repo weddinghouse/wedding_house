@@ -165,6 +165,12 @@ class ProductTemplate(models.Model):
             vals['barcode'] = vals['default_code'] + '9' * 4
 
         res = super(ProductTemplate, self).write(vals)
+        if 'variant_standard_price' in vals:
+            if vals['variant_standard_price']:
+                for product in self.product_variant_ids:
+                    product.standard_price = vals['variant_standard_price']
+
+        return res
 
     @api.onchange('product_textile_type')
     def _onchange_product_textile_type(self):
@@ -238,7 +244,7 @@ class ProductTemplate(models.Model):
     shoes_closure_type_id = fields.Many2one('product.template.shoes.closure.type', string='Shoes Closure Type')
     shoes_style_id = fields.Many2one('product.template.shoes.style', string='Shoes Style')
 
-    variant_standard_price = fields.Float('Cost', digits='Product Price', groups="base.group_user")
+    variant_standard_price = fields.Float('Variant Cost', digits='Product Price', groups="base.group_user")
 
 
 class Product(models.Model):
