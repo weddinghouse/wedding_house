@@ -1,4 +1,4 @@
-from odoo import api, models, _
+from odoo import api, models, _, fields
 from odoo.exceptions import ValidationError
 import json
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -7,6 +7,15 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 This is too ugly
 Need to improve this further
 '''
+
+
+class DescriptionLines(models.Model):
+    _name = 'purchase.order.description.lines'
+
+    name = fields.Char(string='Product')
+    quantity = fields.Integer(string='Quantity')
+    purchase_order_id = fields.Many2one('purchase.order')
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
@@ -44,11 +53,14 @@ class PurchaseOrderLine(models.Model):
                     self.order_id.currency_id,
                     self.order_id.company_id,
                     self.date_order or fields.Date.today(),
-                    )
+                )
             self.price_unit = price_unit
             return
 
-        price_unit = self.env['account.tax']._fix_tax_included_price_company(seller.price, self.product_id.supplier_taxes_id, self.taxes_id, self.company_id) if seller else 0.0
+        price_unit = self.env['account.tax']._fix_tax_included_price_company(seller.price,
+                                                                             self.product_id.supplier_taxes_id,
+                                                                             self.taxes_id,
+                                                                             self.company_id) if seller else 0.0
         if price_unit and seller and self.order_id.currency_id and seller.currency_id != self.order_id.currency_id:
             price_unit = seller.currency_id._convert(
                 price_unit, self.order_id.currency_id, self.order_id.company_id, self.date_order or fields.Date.today())
@@ -71,6 +83,7 @@ class PurchaseOrder(models.Model):
             Attrib = self.env['product.template.attribute.value']
             default_po_line_vals = {}
             new_lines = []
+            total_qty = 0
             for cell in dirty_cells:
                 combination = Attrib.browse(cell['ptav_ids'])
                 no_variant_attribute_values = combination - combination._without_no_variant_attributes()
@@ -80,7 +93,7 @@ class PurchaseOrder(models.Model):
                 # TODO replace the check on product_id by a first check on the ptavs and pnavs?
                 # and only create/require variant after no line has been found ???
                 order_lines = self.order_line.filtered(lambda line: (line._origin or line).product_id == product and (
-                            line._origin or line).product_no_variant_attribute_value_ids == no_variant_attribute_values)
+                        line._origin or line).product_no_variant_attribute_value_ids == no_variant_attribute_values)
 
                 # if product variant already exist in order lines
                 old_qty = sum(order_lines.mapped('product_qty'))
@@ -132,6 +145,10 @@ class PurchaseOrder(models.Model):
                         product_qty=qty,
                         product_no_variant_attribute_value_ids=no_variant_attribute_values.ids)
                                       ))
+                total_qty += qty
+            desc_values = {'name': product_template.display_name, 'quantity': total_qty}
+            self.description_lines = [(0, 0, desc_values)]
+
             if new_lines:
                 res = False
                 self.update(dict(order_line=new_lines))
@@ -139,3 +156,6 @@ class PurchaseOrder(models.Model):
                     res = line._product_id_change() or res
                     line._onchange_quantity()
                 return res
+
+    description_lines = fields.One2many('purchase.order.description.lines', 'purchase_order_id',
+                                        string='Description Lines')

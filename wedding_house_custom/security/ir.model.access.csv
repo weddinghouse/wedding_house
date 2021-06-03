@@ -25,7 +25,9 @@ access_product_template_shoes_closure_type_user,product.template.shoes.closure.t
 access_product_template_shoes_closure_type_manager,product.template.shoes.closure.type.manager,model_product_template_shoes_closure_type,base.group_system,1,1,1,1
 access_product_template_shoes_style_user,product.template.shoes.style.user,model_product_template_shoes_style,base.group_user,1,0,0,0
 access_product_template_shoes_style_manager,product.template.shoes.style.manager,model_product_template_shoes_style,base.group_system,1,1,1,1
+access_purchase_order_description_lines_user,purchase.order.description.lines.user,model_purchase_order_description_lines,base.group_user,1,1,1,0
 access_stock_picking_description_lines_user,stock.picking.description.lines.user,model_stock_picking_description_lines,base.group_user,1,1,1,0
+access_purchase_order_description_lines_manager,purchase.order.description.lines.manager,model_purchase_order_description_lines,base.group_system,1,1,1,1
 access_stock_picking_description_lines_manager,stock.picking.description.lines.manager,model_stock_picking_description_lines,base.group_system,1,1,1,1
 access_template_wizard,template.wizard,model_template_wizard,base.group_system,1,1,1,0
 access_template_wizard_line,template.wizard.line,model_template_wizard_line,base.group_system,1,1,1,0
