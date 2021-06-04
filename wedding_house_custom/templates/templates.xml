@@ -9,12 +9,12 @@
                     ^A0N,44,33^FD<t t-esc="product.name"/>^FS
                     ^FO100,100
                     ^A0N,44,33^FD<t t-if="product.product_template_attribute_value_ids"
-                                    t-esc="product.product_template_attribute_value_ids[0].attribute_id.name"/>: <t
+                                    t-esc="product.product_template_attribute_value_ids[0].attribute_id.print_name"/>: <t
                         t-if="product.product_template_attribute_value_ids"
                         t-esc="product.product_template_attribute_value_ids[0].name"/>^FS
                     ^FO400,100
                     ^A0N,44,33^FD<t t-if="len(product.product_template_attribute_value_ids)"
-                                    t-esc="product.product_template_attribute_value_ids[1].attribute_id.name"/>: <t
+                                    t-esc="product.product_template_attribute_value_ids[1].attribute_id.print_name"/>: <t
                         t-if="len(product.product_template_attribute_value_ids)"
                         t-esc="product.product_template_attribute_value_ids[1].name"/>^FS
                     ^FO100,150
