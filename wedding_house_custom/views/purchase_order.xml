@@ -21,7 +21,7 @@
             <xpath expr="//page[@name='products']" position="after">
                 <page string="Details" name="details">
                     <field name="description_lines">
-                        <tree>
+                        <tree create="1" delete="1" multi_edit="1">
                             <field name="name"/>
                             <field name="quantity"/>
                         </tree>
