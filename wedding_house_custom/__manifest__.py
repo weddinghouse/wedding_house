@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'templates/templates.xml',
+        'reports/delivery_receipt.xml',
         'data/product_data.xml',
         'wizard/template_wizard.xml',
         'views/assets.xml',
@@ -20,6 +21,7 @@
         'views/stock_inventory.xml',
         'views/stock_picking.xml',
         'views/pos_session.xml',
+        'views/stock_reports.xml',
     ],
     'qweb': [
         'static/src/xml/Screens/ReceiptScreen/OrderReceipt.xml',
