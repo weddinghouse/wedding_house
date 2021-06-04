@@ -65,13 +65,13 @@
                                 : <t
                                     t-if="move_line.product_id.product_template_attribute_value_ids"
                                     t-esc="move_line.product_id.product_template_attribute_value_ids[0].name"/>^FS
-                                ^FO100,150
+                                ^FO400,100
                                 ^A0N,44,33^FD<t t-if="len(move_line.product_id.product_template_attribute_value_ids)"
                                                 t-esc="move_line.product_id.product_template_attribute_value_ids[1].attribute_id.name"/>
                                 : <t
                                     t-if="len(move_line.product_id.product_template_attribute_value_ids)"
                                     t-esc="move_line.product_id.product_template_attribute_value_ids[1].name"/>^FS
-                                ^FO400,150
+                                ^FO100,150
                                 <t t-if="move_line.product_id.currency_id.position == 'after'">
                                     ^CI28
                                     ^A0N,44,33^FH^FDPrice: <t t-esc="move_line.product_id.lst_price"
