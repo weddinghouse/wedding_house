@@ -24,6 +24,12 @@ class StockPicking(models.Model):
     description_lines = fields.One2many('stock.picking.description.lines', 'stock_picking_id',
                                         string='Description Lines')
 
+    @api.depends('description_lines')
+    def _compute_description_lines_length(self):
+        for rec in self:
+            rec.description_lines_length = len(rec.description_lines)
+    description_lines_length = fields.Integer(string='Length', compute='_compute_description_lines_length', store=True)
+
 
 class DescriptionLines(models.Model):
     _name = 'stock.picking.description.lines'
@@ -31,4 +37,3 @@ class DescriptionLines(models.Model):
     name = fields.Char(string='Product')
     quantity = fields.Integer(string='Quantity')
     stock_picking_id = fields.Many2one('stock.picking')
-

@@ -8,10 +8,11 @@
         <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='operations']" position="before">
+                <field name="description_lines_length" invisible="1"/>
                 <page string="Details" name="details"
                       attrs="{'invisible': [
                       ('state', 'in', ['assigned', 'done', 'cancel']),
-                      ('description_lines', '=', False)]}"
+                      ('description_lines_length', '=', 0)]}"
                 >
                     <group>
                         <button string="Insert product" class="btn-secondary"
