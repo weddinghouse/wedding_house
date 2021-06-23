@@ -1,0 +1,4 @@
+date 18th dec 2020
+version 14.0.0.1
+issue solve:-
+	- sometime currency show in receipt and sometime its not show when we checked exchange details show in receipt
