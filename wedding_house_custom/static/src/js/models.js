@@ -45,7 +45,7 @@ odoo.define('wedding_house_custom.employees', function (require) {
                 "taxDetails": taxdetail,
             };
         },
-    );
+    });
 
     var posmodel_super = models.PosModel.prototype;
     models.PosModel = models.PosModel.extend({
