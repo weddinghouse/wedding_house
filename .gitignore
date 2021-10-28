@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# Pycharm
+.idea/
+wedding_house_custom/__pycache__/
+wedding_house_custom/models/__pycache__/
+
 # Distribution / packaging
 .Python
 build/
