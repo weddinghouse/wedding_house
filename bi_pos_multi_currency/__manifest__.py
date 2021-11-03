@@ -2,12 +2,12 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 {
-    "name" : "POS Multi Currency payment in Odoo",
-    "version" : "14.0.0.1",
-    "category" : "point of sale",
-    "depends" : ['base','point_of_sale'],
+    "name": "POS Multi Currency payment in Odoo",
+    "version": "14.0.0.1",
+    "category": "point of sale",
+    "depends": ['base', 'point_of_sale'],
     "author": "BrowseInfo",
-    "price": 29.00 ,
+    "price": 29.00,
     'currency': "EUR",
     'summary': 'point of sales multi currency payment POS Multiple Currency payment pos payment different currency allow multi currency payment on POS MultiCurrency payment in Point of Sale MultiCurrency payment pos pay order with different two currency pos Payment Multi Currency payment on pos',
     "description": """   
@@ -21,18 +21,23 @@
     odoo multi currency payment odoo difference currency payment odoo payment with multiple currency
 	
 	  """,
-    "website" : "https://www.browseinfo.in",
+    "website": "https://www.browseinfo.in",
     "data": [
-    'security/ir.model.access.csv',
-        'views/assests.xml',
+        'security/ir.model.access.csv',
         'views/pos_config_inherit.xml',
     ],
-    'qweb': [
-        'static/src/xml/pos.xml'
-    ],
+    'assets': {
+        'point_of_sale.assets': [
+            'bi_pos_multi_currency/static/src/css/button.css',
+            'bi_pos_multi_currency/static/src/js/pos_data.js',
+            'bi_pos_multi_currency/static/src/js/BiPaymentScreen.js',
+        ],
+        'web.assets_qweb': [
+            'bi_pos_multi_currency/static/src/xml/pos.xml',
+        ],
+    },
     "auto_install": False,
     "installable": True,
-    'live_test_url':'https://youtu.be/WfbpRH8sMUE',
-    "images":['static/description/Banner.png'],
+    'live_test_url': 'https://youtu.be/WfbpRH8sMUE',
+    "images": ['static/description/Banner.png'],
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
