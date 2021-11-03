@@ -7,7 +7,7 @@
                 <div class="button" t-on-click="selectSalesPerson">
                     <i class="fa fa-user" role="img" aria-label="Sales Person" title="Sales Person"/>
                     <span class="js_sales_person_name">
-                        <t t-if="get_sales_person()">
+                        <t t-if="env.pos.get_sales_person()">
                             <t t-esc="env.pos.get_sales_person().name"/>
                         </t>
                         <t t-if="!env.pos.get_sales_person()">

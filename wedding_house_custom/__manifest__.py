@@ -25,7 +25,7 @@
     ],
     'assets': {
         'point_of_sale.assets': [
-            'wedding_house_custom/static/src/js/models.js"',
+            'wedding_house_custom/static/src/js/models.js',
             'wedding_house_custom/static/src/js/Screens/PaymentScreen/PaymentScreen.js',
         ],
         'web.assets_qweb': [
