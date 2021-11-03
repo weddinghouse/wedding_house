@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="label_barcode_product_product" model="ir.actions.report">
+        <field name="name">Product Barcode (ZPL)</field>
+        <field name="model">product.product</field>
+        <field name="report_type">qweb-text</field>
+        <field name="report_name">wedding_house_custom.label_barcode_product_product_view</field>
+        <field name="report_file">wedding_house_custom.label_barcode_product_product_view</field>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_label_transfer_template_zpl" model="ir.actions.report">
+            <field name="name">Barcodes (ZPL)</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">wedding_house_custom.label_transfer_template_view_zpl</field>
+            <field name="report_file">wedding_house_custom.label_transfer_template_view_zpl</field>
+            <field name="binding_model_id" ref="model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+</odoo>

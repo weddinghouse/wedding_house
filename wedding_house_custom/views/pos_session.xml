@@ -5,28 +5,30 @@
         <field name="model">pos.session</field>
         <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Opening Cashbox" attrs="{'invisible': [('cash_box_start', '=', False)]}">
-<!--                    <button class="oe_inline oe_link" name="open_cashbox_pos" type="object"-->
-<!--                            context="{'balance': 'start'}">-->
-<!--                        Modify Opening Cash</button>-->
-                    <field name="cash_box_start">
-                        <tree>
-                            <field name="coin_value"/>
-                            <field name="number"/>
-                            <field name="subtotal" sum="Total"/>
-                        </tree>
-                    </field>
-                </page>
-                <page string="Closing Cashbox" attrs="{'invisible': [('cash_box_end', '=', False)]}">
-                    <field name="cash_box_end">
-                        <tree>
-                            <field name="coin_value"/>
-                            <field name="number"/>
-                            <field name="subtotal" sum="Total"/>
-                        </tree>
-                    </field>
-                </page>
+            <xpath expr="//group" position="after">
+                <notebook>
+                    <page string="Opening Cashbox" attrs="{'invisible': [('cash_box_start', '=', False)]}">
+                        <!--                    <button class="oe_inline oe_link" name="open_cashbox_pos" type="object"-->
+                        <!--                            context="{'balance': 'start'}">-->
+                        <!--                        Modify Opening Cash</button>-->
+                        <field name="cash_box_start">
+                            <tree>
+                                <field name="coin_value"/>
+                                <field name="number"/>
+                                <field name="subtotal" sum="Total"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Closing Cashbox" attrs="{'invisible': [('cash_box_end', '=', False)]}">
+                        <field name="cash_box_end">
+                            <tree>
+                                <field name="coin_value"/>
+                                <field name="number"/>
+                                <field name="subtotal" sum="Total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
             </xpath>
         </field>
     </record>
