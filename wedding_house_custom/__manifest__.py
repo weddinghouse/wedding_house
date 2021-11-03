@@ -19,7 +19,6 @@
         'views/pos_order.xml',
         'views/purchase_order.xml',
         'views/product.xml',
-        # 'views/stock_inventory.xml',
         'views/stock_picking.xml',
         'views/pos_session.xml',
         'views/stock_reports.xml',
