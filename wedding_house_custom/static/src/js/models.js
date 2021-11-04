@@ -1,7 +1,9 @@
-odoo.define('wedding_house_custom.wedding_house_custom', function (require) {
+odoo.define('wedding_house_custom.employees', function (require) {
     "use strict";
     var models = require('point_of_sale.models');
-    models.load_fields('hr.employee', ['is_sales_person']);
+
+    models.load_fields("hr.employee", ["is_sales_person"]);
+
 
     var posmodel_super = models.PosModel.prototype;
 
@@ -16,6 +18,7 @@ odoo.define('wedding_house_custom.wedding_house_custom', function (require) {
         get_sales_person: function() {
             const selectedOrder = this.get_order();
             if (selectedOrder) {
+
                 if (selectedOrder.sales_person)
                     return selectedOrder.sales_person
             }
@@ -36,6 +39,7 @@ odoo.define('wedding_house_custom.wedding_house_custom', function (require) {
 //            console.log('initialize this', this)
             super_order_model.initialize.apply(this, arguments);
             this.sales_person = this.pos.get_sales_person();
+
         },
         init_from_JSON: function (json) {
 //            console.log('init_from_JSON json', json)
@@ -58,10 +62,13 @@ odoo.define('wedding_house_custom.wedding_house_custom', function (require) {
             var receipt = _super_order.export_for_printing.apply(this,arguments);
 
             var sales_person = this.pos.env.pos.get_sales_person()
+
             if (sales_person)
                 receipt.sales_person = sales_person.name
             return receipt;
         },
     });
+
+
 
 });

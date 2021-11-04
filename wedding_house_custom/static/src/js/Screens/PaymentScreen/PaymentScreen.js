@@ -18,7 +18,7 @@ odoo.define('wedding_house_custom.PaymentScreen', function (require) {
         }
         async selectSalesPerson() {
             const selectionList = this.env.pos.employees
-                .filter((employee) => employee.is_sales_person === true)
+                .filter((employee) => employee.is_sales_person !== true)
                 .map((employee) => {
                         return {
                             id: employee.id,
