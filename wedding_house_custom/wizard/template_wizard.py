@@ -23,17 +23,35 @@ class TemplateWizard(models.TransientModel):
     def action_confirm(self):
         stock_picking_id = self._context['stock_picking_id']
         stock_picking = self.env['stock.picking'].browse(stock_picking_id)
+        print("Stock Picking ", stock_picking, stock_picking.immediate_transfer)
         lines = []
         total_quantity = 0
-        for line in self.line_ids:
-            total_quantity += line.quantity
-            lines.append((0, 0, {
-                'name': line.product_id.name,
-                'product_id': line.product_id.id,
-                'product_uom_qty': line.quantity,
-                'product_uom': line.product_id.uom_po_id.id,
-                'location_id': stock_picking.location_id,
-                'location_dest_id': stock_picking.location_dest_id,
-            }))
-        stock_picking.description_lines = [(0, 0, {'name': self.product_template_id.display_name, 'quantity': total_quantity})]
-        stock_picking.update(dict(move_ids_without_package=lines))
+        if not stock_picking.immediate_transfer:
+            for line in self.line_ids:
+                total_quantity += line.quantity
+                lines.append((0, 0, {
+                    'name': line.product_id.name,
+                    'product_id': line.product_id.id,
+                    'product_uom_qty': line.quantity,
+                    'product_uom': line.product_id.uom_po_id.id,
+                    'location_id': stock_picking.location_id,
+                    'location_dest_id': stock_picking.location_dest_id,
+                }))
+            stock_picking.description_lines = [
+                (0, 0, {'name': self.product_template_id.display_name, 'quantity': total_quantity})]
+            stock_picking.update(dict(move_ids_without_package=lines))
+        else:
+            for line in self.line_ids:
+                total_quantity += line.quantity
+                if line.quantity:
+                    lines.append((0, 0, {
+                        'company_id': self.env.company.id,
+                        'product_id': line.product_id.id,
+                        'qty_done': line.quantity,
+                        'product_uom_id': line.product_id.uom_po_id.id,
+                        'location_id': stock_picking.location_id.id,
+                        'location_dest_id': stock_picking.location_dest_id.id,
+                    }))
+            stock_picking.description_lines = [
+                (0, 0, {'name': self.product_template_id.display_name, 'quantity': total_quantity})]
+            stock_picking.update(dict(move_line_ids_without_package=lines))
